@@ -27,6 +27,10 @@ if not image_PATH:
 	image_PATH = input("\n\tDrag file here: ").strip()
 	im = Image.open(image_PATH).convert("LA")
 
+# Check for user size in
+if "--match" in sys.argv:
+	im = im.resize((int(im.size[0]/2), int(im.size[1]/2)))
+
 # Convert image to raw RGB
 rawdata = [x[0] for x in list(im.getdata())]
 
