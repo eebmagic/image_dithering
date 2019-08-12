@@ -7,4 +7,4 @@ At high enough resolution this can pass off as a a grayscale image with only fiv
 ![After Image](https://github.com/eebmagic/image_dithering/blob/master/example_images/dithered.png "After")
 
 Here is the outline for the patterns that I used for each shade of gray.
-![Scale](https://github.com/eebmagic/image_dithering/blob/master/scale_guide.png "Scale")
+![Scale](https://github.com/eebmagic/image_dithering/blob/master/example_images/scale_guide.png "Scale")
