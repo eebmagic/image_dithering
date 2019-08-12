@@ -12,7 +12,7 @@ for i in sys.argv[1:]:
 		im = Image.open(i).convert("LA")
 		image_PATH = i
 	except OSError:
-		pass	
+		pass
 
 # Get output name from command start
 if '-o' in sys.argv[1:]:
@@ -29,7 +29,7 @@ if not image_PATH:
 
 # Check for user size in
 if "--match" in sys.argv:
-	im = im.resize((int(im.size[0]/2), int(im.size[1]/2)))
+	im = im.resize((int(im.size[0] / 2), int(im.size[1] / 2)))
 
 # Convert image to raw RGB
 rawdata = [x[0] for x in list(im.getdata())]
@@ -38,11 +38,16 @@ rawdata = [x[0] for x in list(im.getdata())]
 # Based on outline in evample_images/scale_guide.png
 black = 0
 white = 1
-dithers = {0: [[black] * 2] * 2, 63: [[black, black], [black, white]], 127: [[black, white], [white, black]], 191: [[black, white], [white, white]], 255: [[white] * 2] * 2}
+dithers = {
+	0: [[black] * 2] * 2,
+	63: [[black, black], [black, white]],
+	127: [[black, white], [white, black]],
+	191: [[black, white], [white, white]],
+	255: [[white] * 2] * 2
+}
 
-straight_options = [0, 63, 127, 191, 255]
+straight_options = list(dithers.keys())
 
-# Use 
 MIN = int(min(rawdata))
 MAX = int(max(rawdata))
 MID = int(mean([MIN, MAX]))
@@ -54,7 +59,7 @@ for i in range(len(intervals) - 1):
 min_jump_distance = min(seg_distances)
 
 greys = []
-print("\nRounding grayscale values to intervals...")
+print("\nRounding grayscale values to pattern keys...")
 for avg in tqdm(rawdata):
 	distances = {}
 	for seg in intervals:
@@ -68,7 +73,7 @@ for avg in tqdm(rawdata):
 ditheredOut = []
 newOne = []
 newTwo = []
-print("\nMaking new Image...")
+print("\nMaking patterns into new image...")
 for ind, val in tqdm(enumerate(greys)):
 	# If at end of row then reset
 	if ind % im.size[0] == 0:
@@ -92,4 +97,3 @@ print(f"Filename: {fileName}")
 savePath = os.getcwd() + '/' + fileName
 newIm.save(savePath)
 print(f"\nImage saved to: {savePath}")
-
