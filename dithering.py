@@ -89,9 +89,7 @@ newIm.putdata(ditheredOut)
 
 if not fileName:
 	fileName = input("\n\tWhat do you want to name the output file?: ")
-	if fileName.endswith('.png'):
-		pass
-	else:
+	if not fileName.endswith('.png'):
 		fileName += '.png'
 print(f"Filename: {fileName}")
 savePath = os.getcwd() + '/' + fileName
